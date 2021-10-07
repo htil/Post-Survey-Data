@@ -1,0 +1,304 @@
+---
+title: "CYSMN DataSet1"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+```{r}
+
+install.packages("data.table")
+library(data.table)
+
+install.packages("plotly")
+library(plotly)
+
+install.packages("stringr")
+library(stringr)
+
+install.packages("moments")
+library("moments")
+
+# load libraries
+
+
+
+```
+
+Load Data
+```{r}
+
+data <- fread("CYSMN_Post Survey_MODIFIED.csv")
+
+```
+
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+scriptive Statistics
+```{r}
+
+##Splitting Data Set #2 by scent types
+scentB <- data[ which(str_detect(data$Q19, "B")),]
+scentA <- data[ which(str_detect(data$Q19, "A")),]
+
+
+```
+
+
+
+```{r}
+
+#Get Type A Questions
+
+##############       COLUMN STATEMENTS          ###############
+Q1A <- c(scentA$Q1)
+Q13A <- c(scentA$Q13)
+Q14A <- c(scentA$Q14)
+Q2A <- c(scentA$Q2)
+Q3A <- c(scentA$Q3)
+Q4A <- c(scentA$Q4)
+Q5A <- c(scentA$Q5)
+Q6A <- c(scentA$Q6)
+Q7A <- c(scentA$Q7)
+Q8A <- c(scentA$Q8)
+Q9A <- c(scentA$Q9)
+Q10A <- c(scentA$Q10)
+Q11A <- c(scentA$Q11)
+Q12A <- c(scentA$Q12)
+
+
+##############       AVERAGE STATEMENTS          ###############
+avgQ1A <- mean(Q1A)
+avgQ13A <- mean(Q13A)
+avgQ14A <- mean(Q14A)
+avgQ2A <- mean(Q2A)
+avgQ3A <- mean(Q3A)
+avgQ4A <- mean(Q4A)
+avgQ5A <- mean(Q5A)
+avgQ6A <- mean(Q6A)
+avgQ7A <- mean(Q7A)
+avgQ8A <- mean(Q8A)
+avgQ9A <- mean(Q9A)
+avgQ10A <- mean(Q10A)
+avgQ11A <- mean(Q11A)
+avgQ12A <- mean(Q12A)
+
+##############       PRINT STATEMENTS          ###############
+stringQ1A <- "Question 1 for Type A average: "
+print(paste(stringQ1A, avgQ1A))
+print("")
+
+stringQ13A <- "Question 2 for Type A average: "
+print(paste(stringQ13A, avgQ13A))
+print("")
+
+stringQ14A <- "Question 3 for Type A average: "
+print(paste(stringQ14A, avgQ14A))
+print("")
+
+stringQ2A <- "Question 4 for Type A average: "
+print(paste(stringQ2A, avgQ2A))
+print("")
+
+stringQ3A <- "Question 5 for Type A average: "
+print(paste(stringQ3A, avgQ3A))
+print("")
+
+stringQ4A <- "Question 6 for Type A average: "
+print(paste(stringQ4A, avgQ4A))
+print("")
+
+stringQ5A <- "Question 7 for Type A average: "
+print(paste(stringQ5A, avgQ5A))
+print("")
+
+stringQ6A <- "Question 8 for Type A average: "
+print(paste(stringQ6A, avgQ6A))
+print("")
+
+stringQ7A <- "Question 9 for Type A average: "
+print(paste(stringQ7A, avgQ7A))
+print("")
+
+stringQ8A <- "Question 10 for Type A average: "
+print(paste(stringQ8A, avgQ8A))
+print("")
+
+stringQ9A <- "Question 11 for Type A average: "
+print(paste(stringQ9A, avgQ9A))
+print("")
+
+stringQ10A <- "Question 12 for Type A average: "
+print(paste(stringQ10A, avgQ10A))
+print("")
+
+stringQ11A <- "Question 13 for Type A average: "
+print(paste(stringQ11A, avgQ11A))
+print("")
+
+stringQ12A <- "Question 14 for Type A average: "
+print(paste(stringQ12A, avgQ12A))
+print("")
+
+```
+
+```{r}
+
+#Get Type B Questions
+
+##############       COLUMN STATEMENTS          ###############
+Q1B <- c(scentB$Q1)
+Q13B <- c(scentB$Q13)
+Q14B <- c(scentB$Q14)
+Q2B <- c(scentB$Q2)
+Q3B <- c(scentB$Q3)
+Q4B <- c(scentB$Q4)
+Q5B <- c(scentB$Q5)
+Q6B <- c(scentB$Q6)
+Q7B <- c(scentB$Q7)
+Q8B <- c(scentB$Q8)
+Q9B <- c(scentB$Q9)
+Q10B <- c(scentB$Q10)
+Q11B <- c(scentB$Q11)
+Q12B <- c(scentB$Q12)
+
+
+##############       AVERAGE STATEMENTS          ###############
+avgQ1B <- mean(Q1B)
+avgQ13B <- mean(Q13B)
+avgQ14B <- mean(Q14B)
+avgQ2B <- mean(Q2B)
+avgQ3B <- mean(Q3B)
+avgQ4B <- mean(Q4B)
+avgQ5B <- mean(Q5B)
+avgQ6B <- mean(Q6B)
+avgQ7B <- mean(Q7B)
+avgQ8B <- mean(Q8B)
+avgQ9B <- mean(Q9B)
+avgQ10B <- mean(Q10B)
+avgQ11B <- mean(Q11B)
+avgQ12B <- mean(Q12B)
+
+##############       PRINT STATEMENTS          ###############
+stringQ1B <- "Question 1 for Type B average: "
+print(paste(stringQ1B, avgQ1B))
+print("")
+
+stringQ13B <- "Question 2 for Type B average: "
+print(paste(stringQ13B, avgQ13B))
+print("")
+
+stringQ14B <- "Question 3 for Type B average: "
+print(paste(stringQ14B, avgQ14B))
+print("")
+
+stringQ2B <- "Question 4 for Type B average: "
+print(paste(stringQ2B, avgQ2B))
+print("")
+
+stringQ3B <- "Question 5 for Type B average: "
+print(paste(stringQ3B, avgQ3B))
+print("")
+
+stringQ4B <- "Question 6 for Type B average: "
+print(paste(stringQ4B, avgQ4B))
+print("")
+
+stringQ5B <- "Question 7 for Type B average: "
+print(paste(stringQ5B, avgQ5B))
+print("")
+
+stringQ6B <- "Question 8 for Type B average: "
+print(paste(stringQ6B, avgQ6B))
+print("")
+
+stringQ7B <- "Question 9 for Type B average: "
+print(paste(stringQ7B, avgQ7B))
+print("")
+
+stringQ8B <- "Question 10 for Type B average: "
+print(paste(stringQ8B, avgQ8B))
+print("")
+
+stringQ9B <- "Question 11 for Type B average: "
+print(paste(stringQ9B, avgQ9B))
+print("")
+
+stringQ10B <- "Question 12 for Type B average: "
+print(paste(stringQ10B, avgQ10B))
+print("")
+
+stringQ11B <- "Question 13 for Type B average: "
+print(paste(stringQ11B, avgQ11B))
+print("")
+
+stringQ12B <- "Question 14 for Type B average: "
+print(paste(stringQ12B, avgQ12B))
+print("")
+
+```
+
+```{r}
+
+###############          Wilcox Testing for Type A         ####################
+# testQ1 <- wilcox.test(Q1B, Q1A, mu=0, alt="two.sided", conf.int=T, conf.level=0.95, paired=T, exact=T, correct=T)
+
+testQ1 <- t.test(Q1B, Q1A)
+print(testQ1)
+
+```
+
+
+
+```{r}
+
+#########           New data frame for Type A ###################
+new_df_TA <- data.frame(Q1A, Q13A, Q14A, Q2A, Q3A, Q4A, Q5A, Q6A, Q7A, Q8A, Q9A, Q10A, Q11A, Q12A)
+
+############     Skewed Values for Type A      #############
+skew_Q1A <- skewness(new_df_TA$Q1A)
+skew_Q13A <- skewness(new_df_TA$Q13A)
+skew_Q14A <- skewness(new_df_TA$Q14A)
+skew_Q2A <- skewness(new_df_TA$Q2A)
+skew_Q3A <- skewness(new_df_TA$Q3A)
+skew_Q4A <- skewness(new_df_TA$Q4A)
+skew_Q5A <- skewness(new_df_TA$Q5A)
+skew_Q6A <- skewness(new_df_TA$Q6A)
+skew_Q7A <- skewness(new_df_TA$Q7A)
+skew_Q8A <- skewness(new_df_TA$Q8A)
+skew_Q9A <- skewness(new_df_TA$Q9A)
+skew_Q10A <- skewness(new_df_TA$Q10A)
+skew_Q11A <- skewness(new_df_TA$Q11A)
+skew_Q12A <- skewness(new_df_TA$Q12A)
+
+
+```
+
+
+
+```{r}
+
+library(datasets)
+data(iris)
+library(plotly)
+# https://plotly.com/r/line-and-scatter/
+
+
+
+```
+
+
+
+
+
+```{r}
+
+```
+
+
+
+
+
+
