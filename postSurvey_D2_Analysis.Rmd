@@ -8,7 +8,6 @@ This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute
 Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
 
 ```{r}
-
 install.packages("data.table")
 library(data.table)
 
@@ -22,6 +21,33 @@ install.packages("moments")
 library("moments")
 
 # load libraries
+```
+
+Crawford 
+```{r}
+library(data.table)
+library(plotly)
+library(stringr)
+library("moments")
+
+
+#pre <- fread("CYSMN_Pre Survey_MODIFIED.csv")
+post <- fread("CYSMN_Post Survey_MODIFIED.csv")
+
+scentB <- post[ which(str_detect(post$Q19, "B")),]
+scentA <- post[ which(str_detect(post$Q19, "A")),]
+
+# Begin Plots
+Questions <- c("Q1", "Q2", "Q3", "Q4", "Q5")
+rosemary <- c(mean(scentA$Q1), mean(scentA$Q2), mean(scentA$Q3), mean(scentA$Q4), mean(scentA$Q5))
+lavender <- c(mean(scentB$Q1), mean(scentB$Q2), mean(scentB$Q3), mean(scentA$Q4), mean(scentB$Q5))
+data <- data.frame(Questions, rosemary, lavender)
+
+fig <- plot_ly(data, x = ~Questions, y = ~rosemary, type = 'bar', name = 'Rosemary')
+fig <- fig %>% add_trace(y = ~lavender, name = 'Lavender')
+fig <- fig %>% layout(yaxis = list(title = 'Rating'), barmode = 'group')
+
+fig
 
 
 
@@ -30,7 +56,9 @@ library("moments")
 Load Data
 ```{r}
 
-data <- fread("CYSMN_Post Survey_MODIFIED.csv")
+#data <- fread("CYSMN_Post Survey_MODIFIED.csv")
+#scentB <- data[ which(str_detect(data$Q19, "B")),]
+#scentA <- data[ which(str_detect(data$Q19, "A")),]
 
 ```
 
@@ -38,10 +66,6 @@ data <- fread("CYSMN_Post Survey_MODIFIED.csv")
 Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
 scriptive Statistics
 ```{r}
-
-##Splitting Data Set #2 by scent types
-scentB <- data[ which(str_detect(data$Q19, "B")),]
-scentA <- data[ which(str_detect(data$Q19, "A")),]
 
 
 ```
