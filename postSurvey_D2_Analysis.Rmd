@@ -17,10 +17,11 @@ library(plotly)
 install.packages("stringr")
 library(stringr)
 
-install.packages("moments")
-library("moments")
+install.packages("stringr")
+library(stringr)
 
-# load libraries
+install.packages("plyr")
+library(plyr)
 ```
 
 Crawford 
@@ -38,17 +39,27 @@ scentB <- post[ which(str_detect(post$Q19, "B")),]
 scentA <- post[ which(str_detect(post$Q19, "A")),]
 
 # Begin Plots
-Questions <- c("Q1", "Q2", "Q3", "Q4", "Q5")
-rosemary <- c(mean(scentA$Q1), mean(scentA$Q2), mean(scentA$Q3), mean(scentA$Q4), mean(scentA$Q5))
-lavender <- c(mean(scentB$Q1), mean(scentB$Q2), mean(scentB$Q3), mean(scentA$Q4), mean(scentB$Q5))
+Questions <- c("Q1", "Q2", "Q3")
+rosemary <- c(mean(scentA$Q1), mean(scentA$Q2), mean(scentA$Q3))
+lavender <- c(mean(scentB$Q1), mean(scentB$Q2), mean(scentB$Q3))
 data <- data.frame(Questions, rosemary, lavender)
 
-fig <- plot_ly(data, x = ~Questions, y = ~rosemary, type = 'bar', name = 'Rosemary')
-fig <- fig %>% add_trace(y = ~lavender, name = 'Lavender')
+
+# Calculate standard deviations
+lavender_sd <- rbind(scentA$Q1, scentA$Q2, scentA$Q3)
+rosemary_sd <- rbind(scentB$Q1, scentB$Q2, scentB$Q3)
+lavender_sd_final <- apply(lavender_sd, 1, function(x) sd(x))
+rosemary_sd_final <- apply(rosemary_sd, 1, function(x) sd(x))
+
+fig <- plot_ly(data, x = ~Questions, y = ~rosemary, type = 'bar', name = 'Rosemary', error_y = ~list(array = rosemary_sd_final, color = '#000000'))
+
+
+fig <- fig %>% add_trace(y = ~lavender, name = 'Lavender', error_y = ~list(array = lavender_sd_final, color = '#000000'))
+
+
 fig <- fig %>% layout(yaxis = list(title = 'Rating'), barmode = 'group')
 
 fig
-
 
 #Test Q1
 wilcox.test(scentA$Q1, scentB$Q1, paired = FALSE)
