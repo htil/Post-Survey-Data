@@ -50,6 +50,46 @@ fig <- fig %>% layout(yaxis = list(title = 'Rating'), barmode = 'group')
 fig
 
 
+#Test Q1
+wilcox.test(scentA$Q1, scentB$Q1, paired = FALSE)
+
+#Test Q2
+wilcox.test(scentA$Q2, scentB$Q2, paired = FALSE)
+
+#Test Q3
+wilcox.test(scentA$Q3, scentB$Q3, paired = FALSE)
+
+#Test Q4
+wilcox.test(scentA$Q4, scentB$Q4, paired = FALSE)
+
+#Test Q5
+wilcox.test(scentA$Q5, scentB$Q5, paired = FALSE)
+
+#Test Q6
+wilcox.test(scentA$Q6, scentB$Q6, paired = FALSE)
+
+#Test Q7
+wilcox.test(scentA$Q7, scentB$Q7, paired = FALSE)
+
+#Test Q7
+wilcox.test(scentA$Q7, scentB$Q7, paired = FALSE)
+
+#Test Q8
+wilcox.test(scentA$Q8, scentB$Q8, paired = FALSE)
+
+#Test Q9
+wilcox.test(scentA$Q9, scentB$Q9, paired = FALSE)
+
+#Test Q10
+wilcox.test(scentA$Q10, scentB$Q10, paired = FALSE)
+
+#Test Q11
+wilcox.test(scentA$Q11, scentB$Q11, paired = FALSE)
+
+#Test Q12
+wilcox.test(scentA$Q12, scentB$Q12, paired = FALSE)
+
+
 
 ```
 
