@@ -1,0 +1,122 @@
+---
+title: "CYSMN DataSet1"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+```{r}
+install.packages("data.table")
+library(data.table)
+
+install.packages("plotly")
+library(plotly)
+
+install.packages("stringr")
+library(stringr)
+
+install.packages("stringr")
+library(stringr)
+
+install.packages("plyr")
+library(plyr)
+```
+
+Crawford 
+```{r}
+library(data.table)
+library(plotly)
+library(stringr)
+library("moments")
+
+
+#pre <- fread("CYSMN_Pre Survey_MODIFIED.csv")
+ds2 <- fread("CYSMN_set_2.csv")
+
+scentB <- ds2[ which(str_detect(ds2$ScentID, "B")),]
+scentA <- ds2[ which(str_detect(ds2$ScentID, "A")),]
+
+
+
+
+###******************************************************************###
+
+
+
+##Time &&Selection Count for Data Set #2 Type A (LAVENDER)##
+time_a <- c(scentA$Time1, scentA$Time2, scentA$Time3)
+selection_count_a <- c(scentA$Count1, scentA$Count2, scentA$Count3)
+
+##Time &&Selection Count for Data Set #2 Type B (ROSEMARY) ##
+time_b <- c(scentB$Time1, scentB$Time2, scentB$Time3)
+selection_count_b <- c(scentB$Count1, scentB$Count2, scentB$Count3)
+
+
+
+###******************************************************************###
+
+#############      Begin FINISH TIME Plots     ##############
+ActivityMeasurements <- c("Completion Time in Seconds")
+rosemary <- c(mean(time_b))
+lavender <- c(mean(time_a))
+data <- data.frame(ActivityMeasurements, rosemary, lavender)
+
+
+# Calculate standard deviations
+lavender_sd <- rbind(time_a)
+rosemary_sd <- rbind(time_b)
+lavender_sd_final <- apply(lavender_sd, 1, function(x) sd(x))
+rosemary_sd_final <- apply(rosemary_sd, 1, function(x) sd(x))
+
+fig <- plot_ly(data, x = ~ActivityMeasurements, y = ~rosemary, type = 'bar', name = 'Rosemary', error_y = ~list(array = c(sd(time_b)), color = '#000000'))
+
+
+fig <- fig %>% add_trace(y = ~lavender, name = 'Lavender', error_y = ~list(array = c(sd(time_a)), color = '#000000'))
+
+
+fig <- fig %>% layout(yaxis = list(title = 'Activity Duration in Seconds'), barmode = 'group')
+
+fig
+
+
+
+###******************************************************************###
+
+#############      Begin SELECTION COUNT Plots     ##############
+ActivityMeasurements <- c("User Clicks until Completion")
+rosemary <- c(mean(selection_count_b))
+lavender <- c(mean(selection_count_a))
+data <- data.frame(ActivityMeasurements, rosemary, lavender)
+rose_sd <- sd(selection_count_b)
+lav_sd <- sd(selection_count_a)
+
+# Calculate standard deviations
+lavender_sd <- rbind(selection_count_a)
+rosemary_sd <- rbind(selection_count_b)
+lavender_sd_final <- apply(lavender_sd, 1, function(x) sd(x))
+rosemary_sd_final <- apply(rosemary_sd, 1, function(x) sd(x))
+
+fig <- plot_ly(data, x = ~ActivityMeasurements, y = ~rosemary, type = 'bar', name = 'Rosemary', error_y = ~list(array = c(rose_sd), color = '#000000'))
+
+
+fig <- fig %>% add_trace(y = ~lavender, name = 'Lavender', error_y = ~list(array = c(lav_sd), color = '#000000'))
+
+
+fig <- fig %>% layout(yaxis = list(title = 'Activity Clicks'), barmode = 'group')
+
+fig
+
+
+```
+
+
+
+
+
+
+
+
+
+
