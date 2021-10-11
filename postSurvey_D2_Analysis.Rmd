@@ -38,29 +38,123 @@ post <- fread("CYSMN_Post Survey_MODIFIED.csv")
 scentB <- post[ which(str_detect(post$Q19, "B")),]
 scentA <- post[ which(str_detect(post$Q19, "A")),]
 
+
+###******************************************************************###
+
+
+############      Begin USER PERCEPTION Plots    ###############
 # Begin Plots
-Questions <- c("Q1", "Q2", "Q3")
-rosemary <- c(mean(scentA$Q1), mean(scentA$Q2), mean(scentA$Q3))
-lavender <- c(mean(scentB$Q1), mean(scentB$Q2), mean(scentB$Q3))
-data <- data.frame(Questions, rosemary, lavender)
+UPQuestions <- c("Q1", "Q2", "Q3", "Q4", "Q13", "Q14")
+UProsemary <- c(mean(scentA$Q1), 
+              mean(scentA$Q2), 
+              mean(scentA$Q3), 
+              mean(scentA$Q4), 
+              mean(scentA$Q13), 
+              mean(scentA$Q14))
+
+UPlavender <- c(mean(scentB$Q1), 
+              mean(scentB$Q2), 
+              mean(scentB$Q3),
+              mean(scentB$Q4),
+              mean(scentB$Q13),
+              mean(scentB$Q14))
+
+
+UPdata <- data.frame(UPQuestions, UProsemary, UPlavender)
 
 
 # Calculate standard deviations
-lavender_sd <- rbind(scentA$Q1, scentA$Q2, scentA$Q3)
-rosemary_sd <- rbind(scentB$Q1, scentB$Q2, scentB$Q3)
-lavender_sd_final <- apply(lavender_sd, 1, function(x) sd(x))
-rosemary_sd_final <- apply(rosemary_sd, 1, function(x) sd(x))
+UPlavender_sd <- rbind(scentA$Q1, scentA$Q2, scentA$Q3, scentA$Q4, scentA$Q13, scentA$Q14)
+UProsemary_sd <- rbind(scentB$Q1, scentB$Q2, scentB$Q3, scentB$Q4, scentB$Q13, scentB$Q14)
 
-fig <- plot_ly(data, x = ~Questions, y = ~rosemary, type = 'bar', name = 'Rosemary', error_y = ~list(array = rosemary_sd_final, color = '#000000'))
+UPlavender_sd_final <- apply(UPlavender_sd, 1, function(x) sd(x))
+UProsemary_sd_final <- apply(UProsemary_sd, 1, function(x) sd(x))
+
+fig <- plot_ly(UPdata, x = ~UPQuestions, y = ~UProsemary, type = 'bar', name = 'Rosemary', error_y = ~list(array = UProsemary_sd_final, color = '#000000'))
 
 
-fig <- fig %>% add_trace(y = ~lavender, name = 'Lavender', error_y = ~list(array = lavender_sd_final, color = '#000000'))
+fig <- fig %>% add_trace(y = ~UPlavender, name = 'Lavender', error_y = ~list(array = UPlavender_sd_final, color = '#000000'))
 
 
 fig <- fig %>% layout(yaxis = list(title = 'Rating'), barmode = 'group')
 
 fig
 
+
+
+
+###******************************************************************###
+
+
+############      Begin USER ACCEPTABILITY Plots    ###############
+
+UAQuestions <- c("Q5", "Q6", "Q7", "Q8", "Q9", "Q10", "Q11", "Q12")
+UArosemary <- c(mean(scentA$Q5), 
+              mean(scentA$Q6), 
+              mean(scentA$Q7), 
+              mean(scentA$Q8), 
+              mean(scentA$Q9), 
+              mean(scentA$Q10),
+              mean(scentA$Q11),
+              mean(scentA$Q12))
+
+UAlavender <- c(mean(scentB$Q5), 
+              mean(scentB$Q6), 
+              mean(scentB$Q7),
+              mean(scentB$Q8),
+              mean(scentB$Q9),
+              mean(scentB$Q10),
+              mean(scentB$Q11),
+              mean(scentB$Q12))
+
+
+UAdata <- data.frame(UAQuestions, UArosemary, UAlavender)
+
+
+# Calculate standard deviations
+UAlavender_sd <- rbind(scentA$Q5, 
+                       scentA$Q6, 
+                       scentA$Q7, 
+                       scentA$Q8, 
+                       scentA$Q9, 
+                       scentA$Q10, 
+                       scentA$Q11, 
+                       scentA$Q12)
+
+UArosemary_sd <- rbind(scentB$Q5, 
+                       scentB$Q6, 
+                       scentB$Q7, 
+                       scentB$Q8, 
+                       scentB$Q9, 
+                       scentB$Q10, 
+                       scentB$Q11, 
+                       scentB$Q12)
+
+UAlavender_sd_final <- apply(UAlavender_sd, 1, function(x) sd(x))
+UArosemary_sd_final <- apply(UArosemary_sd, 1, function(x) sd(x))
+
+fig <- plot_ly(UAdata, x = ~UAQuestions, y = ~UArosemary, type = 'bar', name = 'Rosemary', error_y = ~list(array = UArosemary_sd_final, color = '#000000'))
+
+
+fig <- fig %>% add_trace(y = ~UAlavender, name = 'Lavender', error_y = ~list(array = UAlavender_sd_final, color = '#000000'))
+
+
+fig <- fig %>% layout(yaxis = list(title = 'Rating'), barmode = 'group')
+
+fig
+
+
+
+
+
+
+
+
+```
+
+
+
+```{r}
 #Test Q1
 wilcox.test(scentA$Q1, scentB$Q1, paired = FALSE)
 
@@ -82,9 +176,6 @@ wilcox.test(scentA$Q6, scentB$Q6, paired = FALSE)
 #Test Q7
 wilcox.test(scentA$Q7, scentB$Q7, paired = FALSE)
 
-#Test Q7
-wilcox.test(scentA$Q7, scentB$Q7, paired = FALSE)
-
 #Test Q8
 wilcox.test(scentA$Q8, scentB$Q8, paired = FALSE)
 
@@ -100,22 +191,18 @@ wilcox.test(scentA$Q11, scentB$Q11, paired = FALSE)
 #Test Q12
 wilcox.test(scentA$Q12, scentB$Q12, paired = FALSE)
 
+#Test Q13
+wilcox.test(scentA$Q13, scentB$Q13, paired = FALSE)
 
-
-```
-
-Load Data
-```{r}
-
-#data <- fread("CYSMN_Post Survey_MODIFIED.csv")
-#scentB <- data[ which(str_detect(data$Q19, "B")),]
-#scentA <- data[ which(str_detect(data$Q19, "A")),]
+#Test Q14
+wilcox.test(scentA$Q14, scentB$Q14, paired = FALSE)
 
 ```
 
 
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
-scriptive Statistics
+
+
+
 ```{r}
 
 
@@ -165,59 +252,84 @@ stringQ1A <- "Question 1 for Type A average: "
 print(paste(stringQ1A, avgQ1A))
 print("")
 
-stringQ13A <- "Question 2 for Type A average: "
-print(paste(stringQ13A, avgQ13A))
-print("")
-
-stringQ14A <- "Question 3 for Type A average: "
-print(paste(stringQ14A, avgQ14A))
-print("")
-
-stringQ2A <- "Question 4 for Type A average: "
+stringQ2A <- "Question 2 for Type A average: "
 print(paste(stringQ2A, avgQ2A))
 print("")
 
-stringQ3A <- "Question 5 for Type A average: "
+stringQ3A <- "Question 3 for Type A average: "
 print(paste(stringQ3A, avgQ3A))
 print("")
 
-stringQ4A <- "Question 6 for Type A average: "
+stringQ4A <- "Question 4 for Type A average: "
 print(paste(stringQ4A, avgQ4A))
 print("")
 
-stringQ5A <- "Question 7 for Type A average: "
+stringQ5A <- "Question 5 for Type A average: "
 print(paste(stringQ5A, avgQ5A))
 print("")
 
-stringQ6A <- "Question 8 for Type A average: "
+stringQ6A <- "Question 6 for Type A average: "
 print(paste(stringQ6A, avgQ6A))
 print("")
 
-stringQ7A <- "Question 9 for Type A average: "
+stringQ7A <- "Question 7 for Type A average: "
 print(paste(stringQ7A, avgQ7A))
 print("")
 
-stringQ8A <- "Question 10 for Type A average: "
+stringQ8A <- "Question 8 for Type A average: "
 print(paste(stringQ8A, avgQ8A))
 print("")
 
-stringQ9A <- "Question 11 for Type A average: "
+stringQ9A <- "Question 9 for Type A average: "
 print(paste(stringQ9A, avgQ9A))
 print("")
 
-stringQ10A <- "Question 12 for Type A average: "
+stringQ10A <- "Question 10 for Type A average: "
 print(paste(stringQ10A, avgQ10A))
 print("")
 
-stringQ11A <- "Question 13 for Type A average: "
+stringQ11A <- "Question 11 for Type A average: "
 print(paste(stringQ11A, avgQ11A))
 print("")
 
-stringQ12A <- "Question 14 for Type A average: "
+stringQ12A <- "Question 12 for Type A average: "
 print(paste(stringQ12A, avgQ12A))
 print("")
 
+stringQ13A <- "Question 13 for Type A average: "
+print(paste(stringQ13A, avgQ13A))
+print("")
+
+stringQ14A <- "Question 14 for Type A average: "
+print(paste(stringQ14A, avgQ14A))
+print("")
+
+
+
 ```
+
+```{r}
+
+
+print("Type A Standard Deviation")
+
+sd(scentA$Q1)
+sd(scentA$Q2)
+sd(scentA$Q3)
+sd(scentA$Q4)
+sd(scentA$Q5)
+sd(scentA$Q6)
+sd(scentA$Q7)
+sd(scentA$Q8)
+sd(scentA$Q9)
+sd(scentA$Q10)
+sd(scentA$Q11)
+sd(scentA$Q12)
+sd(scentA$Q13)
+sd(scentA$Q14)
+
+```
+
 
 ```{r}
 
@@ -261,59 +373,85 @@ stringQ1B <- "Question 1 for Type B average: "
 print(paste(stringQ1B, avgQ1B))
 print("")
 
-stringQ13B <- "Question 2 for Type B average: "
-print(paste(stringQ13B, avgQ13B))
-print("")
-
-stringQ14B <- "Question 3 for Type B average: "
-print(paste(stringQ14B, avgQ14B))
-print("")
-
-stringQ2B <- "Question 4 for Type B average: "
+stringQ2B <- "Question 2 for Type B average: "
 print(paste(stringQ2B, avgQ2B))
 print("")
 
-stringQ3B <- "Question 5 for Type B average: "
+stringQ3B <- "Question 3 for Type B average: "
 print(paste(stringQ3B, avgQ3B))
 print("")
 
-stringQ4B <- "Question 6 for Type B average: "
+stringQ4B <- "Question 4 for Type B average: "
 print(paste(stringQ4B, avgQ4B))
 print("")
 
-stringQ5B <- "Question 7 for Type B average: "
+stringQ5B <- "Question 5 for Type B average: "
 print(paste(stringQ5B, avgQ5B))
 print("")
 
-stringQ6B <- "Question 8 for Type B average: "
+stringQ6B <- "Question 6 for Type B average: "
 print(paste(stringQ6B, avgQ6B))
 print("")
 
-stringQ7B <- "Question 9 for Type B average: "
+stringQ7B <- "Question 7 for Type B average: "
 print(paste(stringQ7B, avgQ7B))
 print("")
 
-stringQ8B <- "Question 10 for Type B average: "
+stringQ8B <- "Question 8 for Type B average: "
 print(paste(stringQ8B, avgQ8B))
 print("")
 
-stringQ9B <- "Question 11 for Type B average: "
+stringQ9B <- "Question 9 for Type B average: "
 print(paste(stringQ9B, avgQ9B))
 print("")
 
-stringQ10B <- "Question 12 for Type B average: "
+stringQ10B <- "Question 10 for Type B average: "
 print(paste(stringQ10B, avgQ10B))
 print("")
 
-stringQ11B <- "Question 13 for Type B average: "
+stringQ11B <- "Question 11 for Type B average: "
 print(paste(stringQ11B, avgQ11B))
 print("")
 
-stringQ12B <- "Question 14 for Type B average: "
+stringQ12B <- "Question 12 for Type B average: "
 print(paste(stringQ12B, avgQ12B))
 print("")
 
+stringQ13B <- "Question 13 for Type B average: "
+print(paste(stringQ13B, avgQ13B))
+print("")
+
+stringQ14B <- "Question 14 for Type B average: "
+print(paste(stringQ14B, avgQ14B))
+print("")
+
+
+
+
 ```
+
+```{r}
+
+print("Tye B Standard Deviation")
+
+sd(scentB$Q1)
+sd(scentB$Q2)
+sd(scentB$Q3)
+sd(scentB$Q4)
+sd(scentB$Q5)
+sd(scentB$Q6)
+sd(scentB$Q7)
+sd(scentB$Q8)
+sd(scentB$Q9)
+sd(scentB$Q10)
+sd(scentB$Q11)
+sd(scentB$Q12)
+sd(scentB$Q13)
+sd(scentB$Q14)
+
+
+```
+
 
 ```{r}
 
