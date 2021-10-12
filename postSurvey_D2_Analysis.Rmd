@@ -45,14 +45,14 @@ scentA <- post[ which(str_detect(post$Q19, "A")),]
 ############      Begin USER PERCEPTION Plots    ###############
 # Begin Plots
 UPQuestions <- c("Q1", "Q2", "Q3", "Q4", "Q13", "Q14")
-UProsemary <- c(mean(scentA$Q1), 
+UPlavender <- c(mean(scentA$Q1), 
               mean(scentA$Q2), 
               mean(scentA$Q3), 
               mean(scentA$Q4), 
               mean(scentA$Q13), 
               mean(scentA$Q14))
 
-UPlavender <- c(mean(scentB$Q1), 
+UProsemary <- c(mean(scentB$Q1), 
               mean(scentB$Q2), 
               mean(scentB$Q3),
               mean(scentB$Q4),
@@ -89,7 +89,7 @@ fig
 ############      Begin USER ACCEPTABILITY Plots    ###############
 
 UAQuestions <- c("Q5", "Q6", "Q7", "Q8", "Q9", "Q10", "Q11", "Q12")
-UArosemary <- c(mean(scentA$Q5), 
+UAlavender <- c(mean(scentA$Q5), 
               mean(scentA$Q6), 
               mean(scentA$Q7), 
               mean(scentA$Q8), 
@@ -98,7 +98,7 @@ UArosemary <- c(mean(scentA$Q5),
               mean(scentA$Q11),
               mean(scentA$Q12))
 
-UAlavender <- c(mean(scentB$Q5), 
+UArosemary <- c(mean(scentB$Q5), 
               mean(scentB$Q6), 
               mean(scentB$Q7),
               mean(scentB$Q8),

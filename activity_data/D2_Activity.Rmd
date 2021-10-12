@@ -98,6 +98,8 @@ rosemary_sd <- rbind(selection_count_b)
 lavender_sd_final <- apply(lavender_sd, 1, function(x) sd(x))
 rosemary_sd_final <- apply(rosemary_sd, 1, function(x) sd(x))
 
+
+
 fig <- plot_ly(data, x = ~ActivityMeasurements, y = ~rosemary, type = 'bar', name = 'Rosemary', error_y = ~list(array = c(rose_sd), color = '#000000'))
 
 
